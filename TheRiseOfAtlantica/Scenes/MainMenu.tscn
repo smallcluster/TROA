@@ -1,0 +1,124 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://pixelart.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Textures/act1.png" type="Texture" id=2]
+[ext_resource path="res://Musics/Maintheme.wav" type="AudioStream" id=3]
+[ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Act1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Shaders/waterOverlay.shader" type="Shader" id=6]
+[ext_resource path="res://Textures/fond.png" type="Texture" id=7]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 6 )
+shader_param/blue_tint = Color( 0.227451, 0.45098, 0.721569, 1 )
+shader_param/sprite_scale = Vector2( 320, 160 )
+shader_param/scale_x = 0.05
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 4 )
+next_scene = ExtResource( 5 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 6.10352e-05
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer"]
+margin_right = 1280.0
+margin_bottom = 720.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+modulate = Color( 0.678431, 0.678431, 0.678431, 1 )
+margin_right = 1280.0
+margin_bottom = 720.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+material = SubResource( 1 )
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="GridContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="Container2" type="Container" parent="MarginContainer/GridContainer"]
+margin_right = 1280.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="Label" type="Label" parent="MarginContainer/GridContainer"]
+margin_top = 104.0
+margin_right = 1280.0
+margin_bottom = 160.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.94902, 0.490196, 0, 1 )
+text = "The Rise Of Atlantica"
+align = 1
+
+[node name="Container" type="Container" parent="MarginContainer/GridContainer"]
+margin_top = 164.0
+margin_right = 1280.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+margin_top = 268.0
+margin_right = 1280.0
+margin_bottom = 336.0
+
+[node name="Container2" type="Container" parent="MarginContainer/GridContainer/HBoxContainer"]
+margin_right = 284.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="Jouer" type="Button" parent="MarginContainer/GridContainer/HBoxContainer"]
+margin_left = 288.0
+margin_right = 520.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 232, 68 )
+custom_fonts/font = SubResource( 3 )
+text = "Jouer"
+expand_icon = true
+
+[node name="Container" type="Container" parent="MarginContainer/GridContainer/HBoxContainer"]
+margin_left = 524.0
+margin_right = 808.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="Quitter" type="Button" parent="MarginContainer/GridContainer/HBoxContainer"]
+margin_left = 812.0
+margin_right = 992.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 3 )
+text = "Quitter"
+expand_icon = true
+
+[node name="Container3" type="Container" parent="MarginContainer/GridContainer/HBoxContainer"]
+margin_left = 996.0
+margin_right = 1280.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
+[connection signal="button_up" from="MarginContainer/GridContainer/HBoxContainer/Jouer" to="." method="_on_Jouer_button_up"]
+[connection signal="button_up" from="MarginContainer/GridContainer/HBoxContainer/Quitter" to="." method="_on_Quitter_button_up"]

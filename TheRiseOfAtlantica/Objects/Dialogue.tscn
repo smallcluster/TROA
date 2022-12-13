@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://pixelart.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/Dialogue.gd" type="Script" id=2]
+[ext_resource path="res://Sounds/dialogue.wav" type="AudioStream" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "depop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.241484, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Box/LabelContinue:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.225313, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1e-05 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Box/LabelContinue:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[node name="Dialogue" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Box" type="Node2D" parent="."]
+position = Vector2( -125, -125 )
+z_index = 10
+
+[node name="ColorRect" type="ColorRect" parent="Box"]
+margin_right = 250.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 250, 100 )
+color = Color( 0.823529, 0.74902, 0.490196, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Box"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 242.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 234, 84 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "les dialogues sont separes par des si y en a plusieurs"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelContinue" type="Label" parent="Box"]
+margin_left = 8.0
+margin_top = 103.0
+margin_right = 244.0
+margin_bottom = 117.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.117647, 0.682353, 0, 1 )
+text = "E pour continuer"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/depop = SubResource( 3 )
+anims/pop = SubResource( 4 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 11.375

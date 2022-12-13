@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/volcanouchouchou.wav-85bf749effed9234a40443d13f0604ef.sample"
+
+[deps]
+
+source_file="res://Sounds/volcanouchouchou.wav"
+dest_files=[ "res://.import/volcanouchouchou.wav-85bf749effed9234a40443d13f0604ef.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

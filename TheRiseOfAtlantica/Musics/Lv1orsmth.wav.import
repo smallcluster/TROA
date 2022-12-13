@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Lv1orsmth.wav-1e093c6dd3d9219f4315c2e0d8aaf243.sample"
+
+[deps]
+
+source_file="res://Musics/Lv1orsmth.wav"
+dest_files=[ "res://.import/Lv1orsmth.wav-1e093c6dd3d9219f4315c2e0d8aaf243.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

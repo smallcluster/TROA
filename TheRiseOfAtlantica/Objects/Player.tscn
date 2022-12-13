@@ -1,0 +1,190 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://AnimatedSprite/player.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://Textures/player_indicator.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/Sautaimadame.wav" type="AudioStream" id=4]
+[ext_resource path="res://Textures/coeur.png" type="Texture" id=5]
+[ext_resource path="res://Sounds/fallDown.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/die.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/get_hit.wav" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/attack.wav" type="AudioStream" id=9]
+[ext_resource path="res://Textures/attack_effect.png" type="Texture" id=10]
+[ext_resource path="res://Sounds/life_pick_up.wav" type="AudioStream" id=11]
+
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -8, 8 ), Vector2( -8, 9 ), Vector2( -8, 8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "walk"
+length = 0.25
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 5.0, -5.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "immunity"
+step = 0.005
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.165, 0.335, 0.5, 0.665, 0.835, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 28.9125, 41.322 )
+
+[sub_resource type="Animation" id=5]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 0.297302, 2.63902 ),
+"update": 0,
+"values": [ Vector2( -3.36737, -108.879 ), Vector2( -3.367, -120.603 ), Vector2( -3.36737, -108.879 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 82.6936, 37.9978 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
+script = ExtResource( 1 )
+jumpSFX = ExtResource( 4 )
+fallDownSFX = ExtResource( 6 )
+dieSFX = ExtResource( 7 )
+getHitSFX = ExtResource( 8 )
+getLifeSFX = ExtResource( 11 )
+
+[node name="attack_effect" type="Sprite" parent="."]
+visible = false
+position = Vector2( -92.3259, -40.9287 )
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( -8, 8 )
+frames = ExtResource( 2 )
+speed_scale = 4.0
+offset = Vector2( 2.5, -3.5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+autoplay = "idle"
+anims/idle = SubResource( 1 )
+anims/walk = SubResource( 2 )
+
+[node name="immunity" type="AnimationPlayer" parent="Sprite"]
+anims/immunity = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.629944, -35.9078 )
+shape = SubResource( 4 )
+
+[node name="JumpEffects" type="Node2D" parent="."]
+
+[node name="indicator" type="Sprite" parent="."]
+position = Vector2( -3.36737, -108.879 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 3 )
+
+[node name="indicatorAnim" type="AnimationPlayer" parent="indicator"]
+autoplay = "move"
+anims/move = SubResource( 5 )
+
+[node name="SFX1" type="AudioStreamPlayer" parent="."]
+
+[node name="SFXAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+margin_right = 192.0
+margin_bottom = 54.0
+color = Color( 0.133333, 0.133333, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="heart1" type="Sprite" parent="CanvasLayer"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+offset = Vector2( 8, 8 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="heart2" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 64, 0 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+offset = Vector2( 8, 8 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="heart3" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 128, 0 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+offset = Vector2( 8, 8 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="attackArea" type="Area2D" parent="."]
+position = Vector2( -77.7625, -35.9458 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackArea"]
+position = Vector2( 31.9541, -3.36357 )
+shape = SubResource( 6 )

@@ -1,0 +1,465 @@
+[gd_scene load_steps=35 format=2]
+
+[ext_resource path="res://Textures/act1_phase1.png" type="Texture" id=1]
+[ext_resource path="res://Musics/nogurassion.wav" type="AudioStream" id=2]
+[ext_resource path="res://Textures/fond.png" type="Texture" id=3]
+[ext_resource path="res://Shaders/waterOverlay.shader" type="Shader" id=4]
+[ext_resource path="res://Objects/pnj_act1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sounds/screams.wav" type="AudioStream" id=6]
+[ext_resource path="res://Musics/PANIK.wav" type="AudioStream" id=7]
+[ext_resource path="res://Scripts/Act1Animator.gd" type="Script" id=8]
+[ext_resource path="res://Sounds/chiant.wav" type="AudioStream" id=9]
+[ext_resource path="res://Objects/Player.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Level1.tscn" type="PackedScene" id=11]
+[ext_resource path="res://pixelart.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://Sounds/dialogue.wav" type="AudioStream" id=14]
+[ext_resource path="res://Textures/this_way.png" type="Texture" id=15]
+[ext_resource path="res://Textures/act1_temple.png" type="Texture" id=17]
+[ext_resource path="res://Textures/act1_phase2.png" type="Texture" id=18]
+[ext_resource path="res://Textures/falling_rocks.png" type="Texture" id=19]
+[ext_resource path="res://Sounds/volcanouchouchou.wav" type="AudioStream" id=20]
+[ext_resource path="res://Textures/buble.png" type="Texture" id=21]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+shader_param/blue_tint = Color( 0, 0, 0, 1 )
+shader_param/sprite_scale = Vector2( 320, 160 )
+shader_param/scale_x = 0.25
+
+[sub_resource type="Animation" id=2]
+resource_name = "fall"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.1, 1.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -9.3, -6.2, 9.3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 771.7, 56.4464 ), Vector2( 773.124, 78.3217 ), Vector2( 791.273, 185.765 ) ]
+}
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 57.2
+gravity = Vector3( 0, 200, 0 )
+initial_velocity = 200.0
+angular_velocity = 144.0
+angular_velocity_random = 0.4
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+direction = Vector3( -1, -1, 0 )
+spread = 50.0
+gravity = Vector3( 0, -98, 0 )
+initial_velocity = 76.27
+initial_velocity_random = 0.51
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=5]
+flag_disable_z = true
+direction = Vector3( 1, -1, 0 )
+spread = 50.0
+gravity = Vector3( 0, -98, 0 )
+initial_velocity = 76.27
+initial_velocity_random = 0.51
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="Animation" id=6]
+resource_name = "effect"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.501961, 0.0745098, 0.0745098, 0.329412 ), Color( 0.501961, 0.0745098, 0.0745098, 0.227451 ), Color( 0.501961, 0.0745098, 0.0745098, 0.329412 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 737.082, 35.1146 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 24
+font_data = ExtResource( 13 )
+
+[sub_resource type="Animation" id=11]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.034674, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.0426888, 0.000345267 ),
+"update": 0,
+"values": [ Vector2( 1, 1e-05 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 46.556, 621.055 )
+
+[sub_resource type="Animation" id=14]
+length = 0.7
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 0.307786, 1.51572, 1 ),
+"update": 0,
+"values": [ Vector2( 1139.03, 264.139 ), Vector2( 1101.57, 264.139 ), Vector2( 1139.03, 264.139 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 63.6393, 103.598 )
+
+[node name="Act1" type="Node2D"]
+script = ExtResource( 8 )
+panik_bg = ExtResource( 7 )
+panik_foule = ExtResource( 6 )
+level1 = ExtResource( 11 )
+newBg = ExtResource( 18 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="water" type="TextureRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -50.0
+margin_right = 50.0001
+margin_bottom = 50.0001
+rect_min_size = Vector2( 1300, 740 )
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="waterWaves" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="temple" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 771.7, 56.4464 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 17 )
+
+[node name="templeAnim" type="AnimationPlayer" parent="CanvasLayer/temple"]
+anims/fall = SubResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="CanvasLayer"]
+position = Vector2( 776.263, 145.407 )
+scale = Vector2( 2, 2 )
+emitting = false
+amount = 10
+lifetime = 5.0
+explosiveness = 0.13
+randomness = 0.39
+process_material = SubResource( 3 )
+texture = ExtResource( 19 )
+
+[node name="explosions" type="AudioStreamPlayer" parent="CanvasLayer/Particles2D"]
+stream = ExtResource( 20 )
+volume_db = -10.048
+pitch_scale = 1.15
+
+[node name="bg" type="TextureRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -9.968
+autoplay = true
+
+[node name="foule" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -4.539
+autoplay = true
+
+[node name="pnjs" type="Node2D" parent="."]
+
+[node name="pnj_act1" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 384.275, 671.092 )
+
+[node name="pnj_act10" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 583.943, 691.728 )
+
+[node name="pnj_act2" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 333.551, 709.802 )
+
+[node name="pnj_act3" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 281.493, 660.413 )
+
+[node name="pnj_act4" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 241.447, 709.802 )
+
+[node name="pnj_act5" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 166.696, 675.096 )
+
+[node name="pnj_act6" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 180.045, 707.132 )
+
+[node name="pnj_act7" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 101.289, 683.105 )
+
+[node name="pnj_act8" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 424.32, 716.476 )
+
+[node name="pnj_act9" parent="pnjs" instance=ExtResource( 5 )]
+position = Vector2( 39.8866, 709.802 )
+
+[node name="bubles" type="Node2D" parent="."]
+
+[node name="bubles" type="Particles2D" parent="bubles"]
+position = Vector2( 668.12, 122.546 )
+emitting = false
+amount = 10
+lifetime = 2.0
+speed_scale = 1.79
+explosiveness = 0.08
+randomness = 0.12
+process_material = SubResource( 4 )
+texture = ExtResource( 21 )
+
+[node name="bubles3" type="Particles2D" parent="bubles"]
+position = Vector2( 869.68, 211.981 )
+emitting = false
+amount = 10
+lifetime = 2.0
+speed_scale = 1.79
+explosiveness = 0.08
+randomness = 0.12
+process_material = SubResource( 5 )
+texture = ExtResource( 21 )
+
+[node name="bubles4" type="Particles2D" parent="bubles"]
+position = Vector2( 850.993, 127.886 )
+emitting = false
+amount = 10
+lifetime = 2.0
+speed_scale = 1.79
+explosiveness = 0.08
+randomness = 0.12
+process_material = SubResource( 5 )
+texture = ExtResource( 21 )
+
+[node name="bubles6" type="Particles2D" parent="bubles"]
+position = Vector2( 907.987, 120.372 )
+emitting = false
+amount = 10
+lifetime = 2.0
+speed_scale = 1.79
+explosiveness = 0.08
+randomness = 0.12
+process_material = SubResource( 5 )
+texture = ExtResource( 21 )
+
+[node name="bubles2" type="Particles2D" parent="bubles"]
+position = Vector2( 765.563, 154.582 )
+emitting = false
+amount = 10
+lifetime = 2.0
+speed_scale = 1.79
+explosiveness = 0.08
+randomness = 0.12
+process_material = SubResource( 4 )
+texture = ExtResource( 21 )
+
+[node name="bubles5" type="Particles2D" parent="bubles"]
+position = Vector2( 716.426, 109.225 )
+emitting = false
+amount = 10
+lifetime = 2.0
+speed_scale = 1.79
+explosiveness = 0.08
+randomness = 0.12
+process_material = SubResource( 4 )
+texture = ExtResource( 21 )
+
+[node name="RED" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="RED"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0745098, 0.333333, 0.52549, 0.329412 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RED/ColorRect"]
+anims/effect = SubResource( 6 )
+
+[node name="fadeOutLayer" type="CanvasLayer" parent="."]
+
+[node name="fadeout" type="ColorRect" parent="fadeOutLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="animation" type="AnimationPlayer" parent="fadeOutLayer/fadeout"]
+anims/fadeIn = SubResource( 7 )
+anims/fadeOut = SubResource( 8 )
+
+[node name="Player" parent="." instance=ExtResource( 10 )]
+position = Vector2( 842.91, 682.582 )
+
+[node name="ground" type="StaticBody2D" parent="."]
+position = Vector2( 683.028, 727.317 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground"]
+shape = SubResource( 9 )
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="dialogBox" type="Node2D" parent="CanvasLayer2"]
+position = Vector2( 585.203, 594.641 )
+scale = Vector2( 1, 1e-05 )
+
+[node name="background" type="ColorRect" parent="CanvasLayer2/dialogBox"]
+margin_left = -185.814
+margin_top = -185.09
+margin_right = 208.186
+margin_bottom = -5.08984
+color = Color( 0.980392, 0.811765, 0.521569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer2/dialogBox/background"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 387.0
+margin_bottom = 180.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2/dialogBox"]
+anims/depop = SubResource( 11 )
+anims/pop = SubResource( 12 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer2/dialogBox"]
+stream = ExtResource( 14 )
+volume_db = 10.731
+
+[node name="wall" type="StaticBody2D" parent="."]
+position = Vector2( -41.9526, 401.546 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+shape = SubResource( 13 )
+
+[node name="wall2" type="StaticBody2D" parent="."]
+position = Vector2( 1445.59, 265.628 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+shape = SubResource( 13 )
+
+[node name="this_way" type="Sprite" parent="."]
+position = Vector2( 1102.4, 264.139 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 15 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="this_way"]
+autoplay = "move"
+anims/move = SubResource( 14 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 1329.23, 582.943 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 15 )
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
